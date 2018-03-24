@@ -4,7 +4,7 @@ import com.cn.demo.dataobject.ProductCategory;
 
 import java.util.List;
 
-public interface ProdeuctCategoryService  {
+public interface ProductCategoryService {
 
     ProductCategory findOne(Integer categoryId);
 

@@ -24,7 +24,7 @@ public class ProductInfoServiceImplTest {
     @Test
     public void findOne() throws Exception {
         ProductInfo productInfo = productInfoService.findOne("500");
-        Assert.assertEquals(500,productInfo.getProductId());
+        Assert.assertEquals("500",productInfo.getProductId());
     }
 
     @Test
@@ -45,5 +45,6 @@ public class ProductInfoServiceImplTest {
     public void findAll() throws Exception {
         PageRequest request = new PageRequest(0,2);
         Page<ProductInfo> result = productInfoService.findAll(request);
+        System.out.println(request.getPageSize());
     }
 }

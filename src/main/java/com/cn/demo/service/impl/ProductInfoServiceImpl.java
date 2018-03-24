@@ -2,14 +2,16 @@ package com.cn.demo.service.impl;
 
 import com.cn.demo.dao.ProductInfoDao;
 import com.cn.demo.dataobject.ProductInfo;
-import com.cn.demo.service.ProductInfoservice;
+import com.cn.demo.service.ProductInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Service;
 
 import java.awt.print.Pageable;
 import java.util.List;
 
-public class ProductInfoServiceImpl implements ProductInfoservice {
+@Service
+public class ProductInfoServiceImpl implements ProductInfoService {
 
     @Autowired
     private ProductInfoDao productInfoDao;

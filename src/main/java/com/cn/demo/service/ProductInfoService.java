@@ -8,7 +8,7 @@ import java.awt.print.Pageable;
 import java.util.List;
 
 @Service
-public interface ProductInfoservice {
+public interface ProductInfoService {
 
     ProductInfo findOne(String productId);
 
