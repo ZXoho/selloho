@@ -24,7 +24,7 @@ public class ProductInfoDaoTest {
 
     @Test
     @org.springframework.transaction.annotation.Transactional
-    public void saveTset() {
+    public void saveTest() {
         ProductInfo productInfo = new ProductInfo();
         productInfo.setProductName("大刀肉");
         productInfo.setCategoryType(3);

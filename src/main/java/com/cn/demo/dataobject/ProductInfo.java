@@ -31,4 +31,5 @@ public class ProductInfo {
     //商品所属种类
     private  Integer categoryType;
 
+
 }
