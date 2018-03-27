@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 public class OrderMasterDaoTest {
 
     @Autowired
-    OrderMasterDao orderMasterDao;
+    private OrderMasterDao orderMasterDao;
     private final String OPENID = "10086";
 
     @Test
