@@ -12,7 +12,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -23,35 +22,36 @@ public class OrderMasterDaoTest {
     private final String OPENID = "10086";
 
     @Test
-    public void findByBuyerOpenId() throws Exception {
+    public void findByBuyerOpenId() {
         PageRequest request = new PageRequest(0, 1);
-        Page<OrderMaster> result = orderMasterDao.findByBuyerOpenId(OPENID, request);
+        Page<OrderMaster> result = orderMasterDao.findBybuyerOpenId(OPENID, request);
         System.out.println(result.getTotalPages());
 
 
     }
 
     @Test
-    public void findAllTest() throws Exception {
+    public void findAllTest() {
         List<OrderMaster> resultList = orderMasterDao.findAll();
         Assert.assertNotEquals(0, resultList.size());
     }
 
     @Test
-    public void saveTest() throws Exception {
+    public void saveTest() {
         OrderMaster orderMaster = new OrderMaster();
         orderMaster.setOrderName("冒菜");
         orderMaster.setOrderId("8799");
-        orderMaster.setOrderPhone("18280003725");
-        orderMaster.setOrderAddress("西华大学临江苑12栋");
-        orderMaster.setOpeId("45646");
+        orderMaster.setOrderPhone("1828000");
+        orderMaster.setBuyerName("男神");
+        orderMaster.setOrderAddress("四川大学临江苑12栋");
+        orderMaster.setBuyerOpenId("45646");
         OrderMaster result = orderMasterDao.save(orderMaster);
         Assert.assertNotNull(result);
 
     }
 
     @Test
-    public void deleteTest() throws Exception {
+    public void deleteTest()  {
 
 
     }

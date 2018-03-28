@@ -1,10 +1,13 @@
 spring:
   datasource:
-    driver-class-name : com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: 123456
-    url: jdbc:mysql://192.168.0.7/sell?characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://192.168.0.4:3306/sell?characterEncoding=utf-8&useSSL=false
   jpa:
     show-sql: true
+#    hibernate:
+#      naming:
+#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 server:
   context-path: /sell

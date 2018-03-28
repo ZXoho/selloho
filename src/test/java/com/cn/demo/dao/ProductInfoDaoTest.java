@@ -26,7 +26,7 @@ public class ProductInfoDaoTest {
     @org.springframework.transaction.annotation.Transactional
     public void saveTest() {
         ProductInfo productInfo = new ProductInfo();
-        productInfo.setProductName("大刀肉");
+        productInfo.setProductName("大刀");
         productInfo.setCategoryType(3);
         productInfo.setProductDescription("香辣好吃");
         productInfo.setProductPrice(new BigDecimal(0.25));

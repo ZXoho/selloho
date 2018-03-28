@@ -1,10 +1,10 @@
 package com.cn.demo.dao;
 
+import com.cn.demo.dataobject.OrderDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.time.chrono.JapaneseChronology;
 import java.util.List;
 
-public interface OrderDetail extends JpaRepository<OrderDetail, String> {
+public interface OrderDetailDao extends JpaRepository<OrderDetail, String> {
     List<OrderDetail> findByOrderId(String orderId);
 }

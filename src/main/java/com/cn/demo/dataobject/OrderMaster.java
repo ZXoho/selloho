@@ -19,8 +19,10 @@ public class OrderMaster {
     @Id
     private String orderId;
 
-    /** 订单名称 */
     private String orderName;
+
+    /** 买家姓名 */
+    private String buyerName;
 
     /** 订单电话 */
     private String orderPhone;
@@ -29,7 +31,7 @@ public class OrderMaster {
     private  String orderAddress;
 
     /** 买家微信openid */
-    private String opeId;
+    private String buyerOpenId;
 
     /** 订单总金额 */
     private BigDecimal orderAmount;
@@ -46,5 +48,5 @@ public class OrderMaster {
     /** 更新时间 */
     private Date updateTime;
 
-    List<OrderDetail> orderDetailList;
+
 }

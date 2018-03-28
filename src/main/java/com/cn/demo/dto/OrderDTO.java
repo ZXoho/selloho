@@ -1,7 +1,7 @@
 package com.cn.demo.dto;
-import com.cn.demo.dao.OrderDetail;
+import com.cn.demo.dao.OrderDetailDao;
 import lombok.Data;
-import javax.persistence.Id;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -59,5 +59,5 @@ public class OrderDTO {
      */
     private Date updateTime;
 
-    List<OrderDetail> orderDetailList;
+    List<OrderDetailDao> orderDetailDaoList;
 }
