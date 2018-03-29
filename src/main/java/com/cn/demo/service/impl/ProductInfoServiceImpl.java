@@ -2,12 +2,15 @@ package com.cn.demo.service.impl;
 
 import com.cn.demo.dao.ProductInfoDao;
 import com.cn.demo.dataobject.ProductInfo;
+import com.cn.demo.dto.CartDTO;
+import com.cn.demo.enums.ResultEnum;
+import com.cn.demo.exception.SellException;
 import com.cn.demo.service.ProductInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 @Service
@@ -37,5 +40,24 @@ public class ProductInfoServiceImpl implements ProductInfoService {
     @Override
     public Page<ProductInfo> findAll(org.springframework.data.domain.Pageable pageable) {
         return productInfoDao.findAll(pageable);
+    }
+
+    @Override
+    @Transactional
+    public void decreaseStock(List<CartDTO> cartDTOList) {
+        for(CartDTO cartDTO: cartDTOList) {
+            ProductInfo productInfo = productInfoDao.findOne(cartDTO.getProductId());
+            if(productInfo == null) {
+                throw new SellException(ResultEnum.PRODUCT_STOCK_ERROR);
+            }
+            Integer result = productInfo.getProductStock() - cartDTO.getProductQuantity();
+            productInfoDao.save(productInfo);
+        }
+
+    }
+
+    @Override
+    public void increaseStock(List<CartDTO> cartDTOList) {
+
     }
 }

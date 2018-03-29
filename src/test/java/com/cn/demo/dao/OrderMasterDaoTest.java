@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -41,10 +42,11 @@ public class OrderMasterDaoTest {
         OrderMaster orderMaster = new OrderMaster();
         orderMaster.setOrderName("冒菜");
         orderMaster.setOrderId("8799");
-        orderMaster.setOrderPhone("1828000");
+        orderMaster.setBuyerPhone("1828000");
         orderMaster.setBuyerName("男神");
-        orderMaster.setOrderAddress("四川大学临江苑12栋");
+        orderMaster.setBuyerAddress("四川大学临江苑12栋");
         orderMaster.setBuyerOpenId("45646");
+        orderMaster.setOrderAmount(new BigDecimal(10.6));
         OrderMaster result = orderMasterDao.save(orderMaster);
         Assert.assertNotNull(result);
 

@@ -1,6 +1,7 @@
 package com.cn.demo.service;
 
 import com.cn.demo.dataobject.ProductInfo;
+import com.cn.demo.dto.CartDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,9 @@ public interface ProductInfoService {
     List<ProductInfo> findUpAll();
 
     //加库存
+    void increaseStock(List<CartDTO> cartDTOList);
 
     //减库存
+    void decreaseStock(List<CartDTO> cartDTOList);
 
 }

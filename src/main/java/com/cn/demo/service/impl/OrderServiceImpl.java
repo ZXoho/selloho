@@ -1,16 +1,86 @@
 package com.cn.demo.service.impl;
-
+import com.cn.demo.Utils.KeyUntil;
+import com.cn.demo.dao.OrderDetailDao;
+import com.cn.demo.dao.OrderMasterDao;
+import com.cn.demo.dataobject.OrderDetail;
+import com.cn.demo.dataobject.OrderMaster;
+import com.cn.demo.dataobject.ProductInfo;
+import com.cn.demo.dto.CartDTO;
 import com.cn.demo.dto.OrderDTO;
+import com.cn.demo.enums.OrderStatusEnum;
+import com.cn.demo.enums.PayStatusEnum;
+import com.cn.demo.enums.PayStatusEnum;
+import com.cn.demo.enums.ResultEnum;
+import com.cn.demo.exception.SellException;
 import com.cn.demo.service.OrderService;
+import com.cn.demo.service.ProductInfoService;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService {
+    @Autowired
+    private ProductInfoService productInfoService;
+
+    @Autowired
+    private OrderDetailDao orderDetailDao;
+
+    @Autowired
+    private OrderMasterDao orderMasterDao;
+
     @Override
+    @Transactional
     public OrderDTO create(OrderDTO orderDTO) {
-        return null;
+
+        BigDecimal orderAmount = new BigDecimal(0);
+        String orderId = KeyUntil.genUniquekey();
+        List<CartDTO> cartDTOList = new ArrayList<>();
+
+        //查询商品数量，价格
+        for (OrderDetail orderDetail : orderDTO.getOrderDetailList()) {
+            ProductInfo productInfo = productInfoService.findOne(orderDetail.getProductId());
+            if (productInfo == null) {
+                throw new SellException(ResultEnum.PRODUCT_DOES_NOT_EXIST);
+            }
+
+            //计算订单总价
+            orderAmount = productInfo.getProductPrice()
+                    .multiply(new BigDecimal(orderDetail.getProductQuantity()))
+                    .add(orderAmount);
+
+            //写入数据库（order_master和order_detail)
+            orderDetail.setDetailId(KeyUntil.genUniquekey());
+            orderDetail.setOrderId(orderId);
+            BeanUtils.copyProperties(productInfo, orderDetail);
+            orderDetailDao.save(orderDetail);
+
+            CartDTO cartDTO = new CartDTO(orderDetail.getProductId(), orderDetail.getProductQuantity());
+            cartDTOList.add(cartDTO);
+
+            OrderMaster orderMaster = new OrderMaster();
+            BeanUtils.copyProperties(orderDTO, orderMaster);
+            orderMaster.setOrderId(orderId);
+            orderMaster.setOrderAmount(orderAmount);
+            orderMaster.setOrderStatus(OrderStatusEnum.NEW.getCode());
+            orderMaster.setPayStatus(PayStatusEnum.WAIT.getCode());
+            orderMasterDao.save(orderMaster);
+
+            //扣库存
+//          List<cartDTO> cartDTOList = orderDTO.getOrderDetailList().stream().map(e ->
+//              new CartDTO(e.getProductId(),e.getProductQuantity())
+//          ).collect(Collectors.toList());
+
+            productInfoService.decreaseStock(cartDTOList);
+        }
+        return orderDTO;
     }
 
     @Override

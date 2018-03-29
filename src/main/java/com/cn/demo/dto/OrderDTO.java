@@ -1,5 +1,5 @@
 package com.cn.demo.dto;
-import com.cn.demo.dao.OrderDetailDao;
+import com.cn.demo.dataobject.OrderDetail;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -17,22 +17,22 @@ public class OrderDTO {
     /**
      * 订单名称
      */
-    private String orderName;
+    private String BuyerName;
 
     /**
      * 订单电话
      */
-    private String orderPhone;
+    private String BuyerPhone;
 
     /**
      * 订单地址
      */
-    private String orderAddress;
+    private String BuyerAddress;
 
     /**
      * 买家微信openid
      */
-    private String opeId;
+    private String BuyerOpenId;
 
     /**
      * 订单总金额
@@ -59,5 +59,5 @@ public class OrderDTO {
      */
     private Date updateTime;
 
-    List<OrderDetailDao> orderDetailDaoList;
+    List<OrderDetail> orderDetailList;
 }

@@ -1,12 +1,13 @@
 package com.cn.demo.dataobject;
 
+import com.cn.demo.enums.OrderStatusEnum;
+import com.cn.demo.enums.PayStatusEnum;
 import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 /**
  * 订单主表
@@ -25,10 +26,10 @@ public class OrderMaster {
     private String buyerName;
 
     /** 订单电话 */
-    private String orderPhone;
+    private String buyerPhone;
 
     /** 订单地址 */
-    private  String orderAddress;
+    private  String buyerAddress;
 
     /** 买家微信openid */
     private String buyerOpenId;
@@ -37,10 +38,10 @@ public class OrderMaster {
     private BigDecimal orderAmount;
 
     /** 订单支付状态，默认0为新下单 */
-    private Integer orderStats = 0;
+    private Integer orderStatus = OrderStatusEnum.NEW.getCode();
 
     /** 支付状态，默认0为未支付 */
-    private Integer payStatus;
+    private Integer payStatus = PayStatusEnum.WAIT.getCode();
 
     /** 创建时间 */
     private Date createTime;
