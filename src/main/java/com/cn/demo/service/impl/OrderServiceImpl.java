@@ -20,6 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -67,6 +68,7 @@ public class OrderServiceImpl implements OrderService {
 
             OrderMaster orderMaster = new OrderMaster();
             BeanUtils.copyProperties(orderDTO, orderMaster);
+            orderMaster.setOrderName(productInfo.getProductName());
             orderMaster.setOrderId(orderId);
             orderMaster.setOrderAmount(orderAmount);
             orderMaster.setOrderStatus(OrderStatusEnum.NEW.getCode());
@@ -85,7 +87,19 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDTO findOne(String orderId) {
-        return null;
+
+        OrderMaster orderMaster = orderMasterDao.findOne(orderId);
+        if(orderMaster == null) {
+            throw new SellException(ResultEnum.ORDER_DOES_NOT_EXIST);
+        }
+        List<OrderDetail> orderDetailList = orderDetailDao.findByOrderId(orderId);
+        if(CollectionUtils.isEmpty(orderDetailList)){
+            throw new SellException(ResultEnum.ORDERDETAIL_DOES_NOT_EXIST);
+        }
+        OrderDTO orderDTO = new OrderDTO();
+        BeanUtils.copyProperties(orderMaster, orderDTO);
+        orderDTO.setOrderDetailList(orderDetailList);
+        return orderDTO;
     }
 
     @Override

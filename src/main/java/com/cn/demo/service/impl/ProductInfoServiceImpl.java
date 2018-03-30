@@ -51,6 +51,7 @@ public class ProductInfoServiceImpl implements ProductInfoService {
                 throw new SellException(ResultEnum.PRODUCT_STOCK_ERROR);
             }
             Integer result = productInfo.getProductStock() - cartDTO.getProductQuantity();
+            productInfo.setProductStock(result);
             productInfoDao.save(productInfo);
         }
 

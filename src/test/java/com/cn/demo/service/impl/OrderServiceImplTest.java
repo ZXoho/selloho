@@ -3,6 +3,7 @@ package com.cn.demo.service.impl;
 import com.cn.demo.dataobject.OrderDetail;
 import com.cn.demo.dto.OrderDTO;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class OrderServiceImplTest {
     OrderServiceImpl orderService;
 
     private final String BUYER_OPEN_ID = "56465";
+    private final String ORDER_ID = "1522417620170473202";
 
     @Test
     public void create() throws Exception {
@@ -44,6 +46,9 @@ public class OrderServiceImplTest {
 
     @Test
     public void findOne() {
+        OrderDTO result = orderService.findOne(ORDER_ID);
+        log.info("【查询单个订单】 result={}", result );
+        Assert.assertEquals(ORDER_ID, result.getOrderId());
     }
 
     @Test
