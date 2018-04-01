@@ -2,4 +2,6 @@ dto : data translate object, 数据传输对象
 
 VO: view object, 视图（页面内容）对象
 
-Utils: 
+Utils:
+
+converter: 转换器
