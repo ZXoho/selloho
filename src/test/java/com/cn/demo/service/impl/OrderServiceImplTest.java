@@ -2,6 +2,7 @@ package com.cn.demo.service.impl;
 
 import com.cn.demo.dataobject.OrderDetail;
 import com.cn.demo.dto.OrderDTO;
+import com.cn.demo.enums.OrderStatusEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -45,25 +46,32 @@ public class OrderServiceImplTest {
     }
 
     @Test
-    public void findOne() {
+    public void findOne() throws Exception {
         OrderDTO result = orderService.findOne(ORDER_ID);
         log.info("【查询单个订单】 result={}", result );
         Assert.assertEquals(ORDER_ID, result.getOrderId());
     }
 
     @Test
-    public void findList() {
+    public void findList() throws Exception {
     }
 
     @Test
-    public void cancel() {
+    public void cancel() throws Exception {
+    OrderDTO orderDTO = orderService.findOne(ORDER_ID);
+    OrderDTO result = orderService.cancel(orderDTO);
+    Assert.assertEquals(OrderStatusEnum.CANCEL.getCode(), result.getOrderStatus());
+
     }
 
     @Test
-    public void finish() {
+    public void finish() throws Exception {
+        OrderDTO orderDTO = orderService.findOne(ORDER_ID);
+        OrderDTO result = orderService.finish(orderDTO);
+        Assert.assertEquals(OrderStatusEnum.FINISHED.getCode(), result.getOrderStatus());
     }
 
     @Test
-    public void pay() {
+    public void paid() throws Exception {
     }
 }

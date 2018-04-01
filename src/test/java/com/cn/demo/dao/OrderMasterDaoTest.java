@@ -40,7 +40,6 @@ public class OrderMasterDaoTest {
     @Test
     public void saveTest() {
         OrderMaster orderMaster = new OrderMaster();
-        orderMaster.setOrderName("冒菜");
         orderMaster.setOrderId("8799");
         orderMaster.setBuyerPhone("1828000");
         orderMaster.setBuyerName("男神");

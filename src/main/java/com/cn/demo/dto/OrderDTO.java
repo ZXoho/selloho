@@ -42,7 +42,7 @@ public class OrderDTO {
     /**
      * 订单支付状态，默认0为新下单
      */
-    private Integer orderStats = 0;
+    private Integer orderStatus = 0;
 
     /**
      * 支付状态，默认0为未支付

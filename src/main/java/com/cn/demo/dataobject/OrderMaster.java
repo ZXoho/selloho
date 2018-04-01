@@ -20,8 +20,6 @@ public class OrderMaster {
     @Id
     private String orderId;
 
-    private String orderName;
-
     /** 买家姓名 */
     private String buyerName;
 
