@@ -33,18 +33,18 @@ public class BuyerOrderController {
     @PostMapping("/create")
     public ResultVO<Map<String, String>> create(@Valid OrderForm orderForm,
                                                 BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
+        if(bindingResult.hasErrors()) {
             log.error("【创建订单】参数不正确, orderForm={}", orderForm);
             throw new SellException(ResultEnum.PARAM_ERROR.getCode(),
                     bindingResult.getFieldError().getDefaultMessage());
         }
         //类型转换
         OrderDTO orderDTO = OrderForm2OrderDTO.convert(orderForm);
-        if (CollectionUtils.isEmpty(orderDTO.getOrderDetailList())) {
+        if(CollectionUtils.isEmpty(orderDTO.getOrderDetailList())) {
             log.error("【创建订单】 订单不能为空");
             throw new SellException(ResultEnum.CART_EMPTY);
         }
-        OrderDTO createResult = orderService.create(orderDTO);
+        OrderDTO  createResult = orderService.create(orderDTO);
         Map<String, String> map = new HashMap<>();
         map.put("orderId", createResult.getOrderId());
         return ResultVOUtil.success(map);
@@ -55,11 +55,7 @@ public class BuyerOrderController {
     public ResultVO<List<OrderDTO>> list(@RequestParam("openid") String openid,
                                          @RequestParam(value = "page", defaultValue = "0") Integer page,
                                          @RequestParam(value = "size", defaultValue = "10") Integer size) {
-<<<<<<< HEAD
         if(StringUtils.isEmpty(openid)) {
-=======
-        if (StringUtils.isEmpty(openId)) {
->>>>>>> cb373c463406ac5b8fc27560bc39d521898f2dfb
             log.error("【查询订单列表】openId不能为空");
             throw new SellException(ResultEnum.PARAM_ERROR);
         }
@@ -70,12 +66,11 @@ public class BuyerOrderController {
 
     //订单详情
     @GetMapping("/detail")
-<<<<<<< HEAD
     public ResultVO<OrderDTO> detail(@RequestParam("openid") String openid,
                                      @RequestParam("orderid") String orderId) {
-       //TODO 方法不安全
-       OrderDTO orderDTO = orderService.findOne(orderId);
-       return ResultVOUtil.success(orderDTO);
+        //TODO 方法不安全
+        OrderDTO orderDTO = orderService.findOne(orderId);
+        return ResultVOUtil.success(orderDTO);
     }
     //取消订单
     @PostMapping("/cancel")
@@ -83,21 +78,6 @@ public class BuyerOrderController {
                            @RequestParam("orderid") String orderId) {
 
         //TODO 方法不安全
-=======
-    public ResultVO<OrderDTO> detail(@RequestParam("openId") String openId,
-                                     @RequestParam("orderId") String orderID) {
-        //TODO
-        OrderDTO result = orderService.findOne(orderID);
-        return ResultVOUtil.success(result);
-    }
-
-
-        //取消订单
-        @PostMapping("/cancel")
-        public ResultVO cancel (@RequestParam("openId") String openId,
-                                @RequestParam("orderId") String orderId){
-        //TODO 不安全
->>>>>>> cb373c463406ac5b8fc27560bc39d521898f2dfb
         OrderDTO orderDTO = orderService.findOne(orderId);
         orderService.cancel(orderDTO);
         return ResultVOUtil.success();
