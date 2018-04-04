@@ -52,21 +52,35 @@ public class BuyerOrderController {
 
     //订单列表
     @GetMapping("/list")
-    public ResultVO<List<OrderDTO>> list(@RequestParam("openId") String openId,
+    public ResultVO<List<OrderDTO>> list(@RequestParam("openid") String openid,
                                          @RequestParam(value = "page", defaultValue = "0") Integer page,
                                          @RequestParam(value = "size", defaultValue = "10") Integer size) {
-        if(StringUtils.isEmpty(openId)) {
+        if(StringUtils.isEmpty(openid)) {
             log.error("【查询订单列表】openId不能为空");
             throw new SellException(ResultEnum.PARAM_ERROR);
         }
         PageRequest request = new PageRequest(page, size);
-        Page<OrderDTO> orderDTOPage = orderService.findList(openId, request);
+        Page<OrderDTO> orderDTOPage = orderService.findList(openid, request);
         return ResultVOUtil.success(orderDTOPage.getContent());
 
     }
 
-
     //订单详情
-
+    @GetMapping("/detail")
+    public ResultVO<OrderDTO> detail(@RequestParam("openid") String openid,
+                                     @RequestParam("orderid") String orderId) {
+       //TODO 方法不安全
+       OrderDTO orderDTO = orderService.findOne(orderId);
+       return ResultVOUtil.success(orderDTO);
+    }
     //取消订单
+    @PostMapping("/cancel")
+    public ResultVO cancel(@RequestParam("openid") String openid,
+                           @RequestParam("orderid") String orderId) {
+
+        //TODO 方法不安全
+        OrderDTO orderDTO = orderService.findOne(orderId);
+        orderService.cancel(orderDTO);
+        return ResultVOUtil.success();
+    }
 }
