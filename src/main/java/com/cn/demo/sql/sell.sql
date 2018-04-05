@@ -30,14 +30,14 @@ create table order_master (
       buyer_name varchar(32) not null,
       buyer_phone varchar(32) not null ,
       buyer_address varchar (128) not null ,
-      buyer_openid varchar(64) not null comment '买家微信id',
+      buyer_open_id varchar(64) not null comment '买家微信id',
       order_amount decimal(8,2) not null comment '订单金额',
       order_status int(3) not null default 0 comment '订单状态，默认0为新下单',
       pay_status int(3) not null default 0 comment '支付状态，默认0为未支付',
       create_time timestamp not null default CURRENT_TIMESTAMP  comment '创建时间',
       update_time timestamp not null default CURRENT_TIMESTAMP on UPDATE  CURRENT_TIMESTAMP comment '修改时间',
       primary key (order_id),
-      KEY idx_buyer_openid (buyer_openid)
+      KEY idx_buyer_open_id (buyer_openid)
 )comment '订单表';
 
 
