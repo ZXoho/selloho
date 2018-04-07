@@ -25,7 +25,7 @@ public class OrderServiceImplTest {
     OrderServiceImpl orderService;
 
     private final String BUYER_OPEN_ID = "56465";
-    private final String ORDER_ID = "1522417620170473202";
+    private final String ORDER_ID = "1523100517028723706";
 
     @Test
     public void create() throws Exception {
@@ -37,7 +37,7 @@ public class OrderServiceImplTest {
         //购物车
         List<OrderDetail> orderDetailList = new ArrayList<>();
         OrderDetail o1 = new OrderDetail();
-        o1.setProductId("400");
+        o1.setProductId("564534");
         o1.setProductQuantity(1);
         orderDetailList.add(o1);
         orderDTO.setOrderDetailList(orderDetailList);

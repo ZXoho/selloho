@@ -26,7 +26,7 @@ public class ProductCategory {
     /** 种类名称 */
     private String categoryName;
 
-    /**B种类编号 */
+    /** 种类编号 */
     private Integer categoryType;
 
     /** 创建时间 */
