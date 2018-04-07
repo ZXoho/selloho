@@ -9,10 +9,7 @@ product_status tinyint(3) default 0 comment '商品状态，0为上架，1为下
 category_type INT NOT NULL COMMENT '类目编号',
 create_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT'创建时间',
 update_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT'修改时间',
-
-
 PRIMARY KEY(product_id)
-
 )COMMENT '商品表';
 
 create table product_category (
@@ -37,12 +34,8 @@ create table order_master (
       create_time timestamp not null default CURRENT_TIMESTAMP  comment '创建时间',
       update_time timestamp not null default CURRENT_TIMESTAMP on UPDATE  CURRENT_TIMESTAMP comment '修改时间',
       primary key (order_id),
-      KEY idx_buyer_open_id (buyer_openid)
+      KEY idx_buyer_open_id (buyer_open_id)
 )comment '订单表';
-
-
-
-
 
 create table order_detail (
       detail_id varchar(32) not null,
