@@ -24,20 +24,20 @@ public class OrderServiceImplTest {
     @Autowired
     OrderServiceImpl orderService;
 
-    private final String BUYER_OPEN_ID = "56465";
-    private final String ORDER_ID = "1523100517028723706";
+    private final String BUYER_OPEN_ID = "htrjhgf";
+    private final String ORDER_ID = "1523102750326979443";
 
     @Test
     public void create() throws Exception {
         OrderDTO orderDTO = new OrderDTO();
         orderDTO.setBuyerAddress("电子科技大学");
-        orderDTO.setBuyerPhone("1828000546");
-        orderDTO.setBuyerName("杨远鹏");
+        orderDTO.setBuyerPhone("1828000564");
+        orderDTO.setBuyerName("周垚旭");
         orderDTO.setBuyerOpenId(BUYER_OPEN_ID);
         //购物车
         List<OrderDetail> orderDetailList = new ArrayList<>();
         OrderDetail o1 = new OrderDetail();
-        o1.setProductId("564534");
+        o1.setProductId("895616");
         o1.setProductQuantity(1);
         orderDetailList.add(o1);
         orderDTO.setOrderDetailList(orderDetailList);

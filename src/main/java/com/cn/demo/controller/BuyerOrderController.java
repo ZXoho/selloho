@@ -7,6 +7,7 @@ import com.cn.demo.dto.OrderDTO;
 import com.cn.demo.enums.ResultEnum;
 import com.cn.demo.exception.SellException;
 import com.cn.demo.form.OrderForm;
+import com.cn.demo.service.BuyerService;
 import com.cn.demo.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ import java.util.Map;
 public class BuyerOrderController {
     @Autowired
     OrderService orderService;
+    @Autowired
+    BuyerService buyerService;
 
     //创建订单
     @PostMapping("/create")
@@ -68,17 +71,15 @@ public class BuyerOrderController {
     @GetMapping("/detail")
     public ResultVO<OrderDTO> detail(@RequestParam("openid") String openid,
                                      @RequestParam("orderid") String orderId) {
-        //TODO 方法不安全
-        OrderDTO orderDTO = orderService.findOne(orderId);
+        OrderDTO orderDTO = buyerService.checkOrderOwner(openid, orderId);
         return ResultVOUtil.success(orderDTO);
     }
+
     //取消订单
     @PostMapping("/cancel")
     public ResultVO cancel(@RequestParam("openid") String openid,
                            @RequestParam("orderid") String orderId) {
-
-        //TODO 方法不安全
-        OrderDTO orderDTO = orderService.findOne(orderId);
+        OrderDTO orderDTO = buyerService.checkOrderOwner(openid, orderId);
         orderService.cancel(orderDTO);
         return ResultVOUtil.success();
     }
