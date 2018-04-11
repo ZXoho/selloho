@@ -10,3 +10,17 @@ spring:
     default-property-inclusion: non_null
 server:
   context-path: /sell
+
+wechat:
+  miniapp:
+    appid:
+    secret:
+    token:
+    aesKey:
+    msgDataForm:
+
+debug: true
+logging:
+  level:
+    org.springframework.web: DEBUG
+    com.github.binarywang.demo.wechat: DEBUG
