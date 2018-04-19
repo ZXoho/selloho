@@ -1,6 +1,9 @@
 package com.cn.demo.controller;
 
 import com.cn.demo.Utils.JsonUtils;
+import com.cn.demo.exception.SellException;
+import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
+import com.github.binarywang.wxpay.service.WxPayService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -17,6 +20,8 @@ import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;
 
 import me.chanjar.weixin.common.exception.WxErrorException;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  *  微信小程序用户接口
  */
@@ -29,6 +34,8 @@ public class WxMaUserController {
 
         @Autowired
         private WxMaService wxService;
+        @Autowired
+        private WxPayService wxPayService;
 
         /**
          * 登陆接口
@@ -44,15 +51,21 @@ public class WxMaUserController {
                 this.logger.info(session.getSessionKey());
                 this.logger.info(session.getOpenid());
                 //TODO 可以增加自己的逻辑，关联业务相关数据
-                return JsonUtils.toJson(session);
+                //return JsonUtils.toJson(session);
+                return session.getOpenid();
             } catch (WxErrorException e) {
                 this.logger.error(e.getMessage(), e);
                 return e.toString();
             }
         }
 
-        /**
-         * <pre>
+    /**
+     * 调用统一支付API
+     */
+
+
+    /**
+     * <pre>
          * 获取用户信息接口
          * </pre>
          */

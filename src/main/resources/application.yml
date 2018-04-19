@@ -1,3 +1,9 @@
+logging:
+  level:
+    org.springframework.web: DEBUG
+    com.github.binarywang.demo.wechat: DEBUG
+    com.github.binarywang.wxpay: DEBUG
+
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
@@ -20,7 +26,4 @@ wechat:
     msgDataForm:
 
 debug: true
-logging:
-  level:
-    org.springframework.web: DEBUG
-    com.github.binarywang.demo.wechat: DEBUG
+
