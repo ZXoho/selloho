@@ -24,6 +24,7 @@ wechat:
     token:
     aesKey:
     msgDataForm:
+    notifyUrl:
 
 debug: true
 

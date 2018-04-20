@@ -17,6 +17,7 @@ import org.springframework.util.StringUtils;
 @ConditionalOnClass(WxMaService.class)
 @EnableConfigurationProperties(WxMaproperties.class)
 public class WxMaConfigration {
+
     @Autowired
     private WxMaproperties properties;
 
