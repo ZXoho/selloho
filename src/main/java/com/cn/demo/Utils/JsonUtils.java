@@ -4,25 +4,19 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class JsonUtils {
 
-        private static final ObjectMapper JSON = new ObjectMapper();
+    public static String toJson(Object obj) {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.setPrettyPrinting();
+        Gson gson = gsonBuilder.create();
+        return gson.toJson(obj);
 
-        static {
-            JSON.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-            JSON.configure(SerializationFeature.INDENT_OUTPUT, Boolean.TRUE);
-        }
 
-        public static String toJson(Object obj) {
-            try {
-                return JSON.writeValueAsString(obj);
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
     }
+}
 
 

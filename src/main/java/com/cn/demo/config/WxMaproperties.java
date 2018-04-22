@@ -4,10 +4,8 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import javax.persistence.Entity;
-
-@ConfigurationProperties(prefix = "wechat.miniapp")
-@Entity
 @Data
+@ConfigurationProperties(prefix = "wechat.miniapp")
 public class WxMaproperties {
 
 
@@ -40,5 +38,7 @@ public class WxMaproperties {
      * apiclient_cert.p12文件的绝对路径，或者如果放在项目中，请以classpath:开头指定
      */
     private String keyPath;
+
+    private String notifyUrl;
 
 }

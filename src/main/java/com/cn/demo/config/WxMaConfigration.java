@@ -4,6 +4,8 @@ import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.api.impl.WxMaServiceImpl;
 import cn.binarywang.wx.miniapp.config.WxMaConfig;
 import com.github.binarywang.wxpay.config.WxPayConfig;
+import com.github.binarywang.wxpay.service.WxPayService;
+import com.github.binarywang.wxpay.service.impl.WxPayServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -23,23 +25,24 @@ public class WxMaConfigration {
 
     @Bean
     @ConditionalOnMissingBean
-    public WxMaService wxMaService(WxMaConfig wxMaConfig) {
-        WxMaService service = new WxMaServiceImpl();
-        service.setWxMaConfig(wxMaConfig);
-        return service;
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
     public WxPayConfig payConfig() {
         WxPayConfig payConfig = new WxPayConfig();
         payConfig.setAppId(this.properties.getAppId());
         payConfig.setMchId(this.properties.getMchId());
         payConfig.setMchKey(this.properties.getMchKey());
         payConfig.setKeyPath(this.properties.getKeyPath());
+        payConfig.setNotifyUrl(this.properties.getNotifyUrl());
         payConfig.setSubAppId(org.apache.commons.lang3.StringUtils.trimToNull(this.properties.getSubAppId()));
         payConfig.setSubMchId(org.apache.commons.lang3.StringUtils.trimToNull(this.properties.getSubMchId()));
         return payConfig;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public WxPayService wxPayService(WxPayConfig wxPayConfig) {
+        WxPayService service = new WxPayServiceImpl();
+        service.setConfig(wxPayConfig);
+        return service;
     }
 
 }
