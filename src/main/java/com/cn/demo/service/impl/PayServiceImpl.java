@@ -7,8 +7,8 @@ import com.cn.demo.dto.OrderDTO;
 import com.cn.demo.enums.PayTypeEnum;
 import com.cn.demo.service.PayService;
 import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
-import com.github.binarywang.wxpay.bean.result.WxPayBillBaseResult;
-import com.github.binarywang.wxpay.service.impl.WxPayServiceImpl;
+import com.github.binarywang.wxpay.bean.result.WxPayBaseResult;
+import com.github.binarywang.wxpay.service.WxPayService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,14 +18,15 @@ import org.springframework.stereotype.Service;
 public class PayServiceImpl implements PayService {
 
     @Autowired
-    private WxPayServiceImpl wxPayService;
+    private WxPayService wxPayService;
     @Override
     public ResultVO create(OrderDTO orderDTO) {
         try {
             WxPayUnifiedOrderRequest orderRequest = new WxPayUnifiedOrderRequest();
+            orderRequest.setBody("微信支付");
             orderRequest.setOpenid(orderDTO.getBuyerOpenId());
             //元转成分
-            //orderRequest.setTotalFee(WxPayBaseResult.yuanToFee(order.getTotalFee()));
+            orderRequest.setTotalFee(WxPayBaseResult.yuanToFee(orderDTO.getOrderAmount()));
             //outTradeNo  订单号
             orderRequest.setOutTradeNo(orderDTO.getOrderId());
             //tradeType 支付方式

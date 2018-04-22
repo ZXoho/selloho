@@ -1,27 +1,25 @@
 package com.cn.demo.config;
 
 import cn.binarywang.wx.miniapp.api.WxMaService;
-import cn.binarywang.wx.miniapp.api.impl.WxMaServiceImpl;
-import cn.binarywang.wx.miniapp.config.WxMaConfig;
 import com.github.binarywang.wxpay.config.WxPayConfig;
 import com.github.binarywang.wxpay.service.WxPayService;
 import com.github.binarywang.wxpay.service.impl.WxPayServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.util.StringUtils;
 
 @Configuration
 @ConditionalOnClass(WxMaService.class)
-@EnableConfigurationProperties(WxMaproperties.class)
-public class WxMaConfigration {
+@EnableConfigurationProperties(WxPayProperties.class)
+
+public class WxPayConfigration {
 
     @Autowired
-    private WxMaproperties properties;
+    private WxPayProperties properties;
 
     @Bean
     @ConditionalOnMissingBean
@@ -38,7 +36,7 @@ public class WxMaConfigration {
     }
 
     @Bean
-    @ConditionalOnMissingBean
+    //@ConditionalOnMissingBean
     public WxPayService wxPayService(WxPayConfig wxPayConfig) {
         WxPayService service = new WxPayServiceImpl();
         service.setConfig(wxPayConfig);

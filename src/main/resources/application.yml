@@ -24,7 +24,7 @@ wechat:
     token:
     aesKey:
     msgDataForm:
-    notifyUrl:
+    notifyUrl: http://zxoho.natapp1.cc/sell/pay/notify
 
 debug: true
 

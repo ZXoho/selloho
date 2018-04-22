@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import javax.persistence.Entity;
 @Data
 @ConfigurationProperties(prefix = "wechat.miniapp")
-public class WxMaproperties {
+public class WxPayProperties {
 
 
     /**
