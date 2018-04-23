@@ -26,6 +26,8 @@ public enum ResultEnum {
     ORDER_PAY_STATUS_ERROR(17, "订单支付状况错误"),
 
     ORDER_FIND_ERROR(18, "订单查询错误"),
+
+    FAIL_TO_GET_IP(19, "获取IP失败"),
     ;
 
     private Integer code;

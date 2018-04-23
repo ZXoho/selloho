@@ -14,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
+
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
@@ -29,6 +32,7 @@ public class PayServiceImplTest {
     @Test
     public void create() throws  Exception{
         OrderDTO orderDTO = orderService.findOne("1523102750326979443");
-        payService.create(orderDTO);
+
+        payService.create(orderDTO, );
     }
 }
