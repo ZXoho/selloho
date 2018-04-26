@@ -33,6 +33,7 @@ public class PayServiceImpl implements PayService {
             orderRequest.setOutTradeNo(orderDTO.getOrderId());
             //tradeType 支付方式
             orderRequest.setTradeType(PayTypeEnum.WX_PAY.getMsg());
+            //金额元转换成分
             orderRequest.setSpbillCreateIp(IpUtil.getIP(request));
             orderRequest.setTimeStart(orderDTO.getCreateTime().toString());
             return ResultVOUtil.success(wxPayService.createOrder(orderRequest));

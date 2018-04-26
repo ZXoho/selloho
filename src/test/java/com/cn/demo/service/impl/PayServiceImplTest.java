@@ -33,6 +33,6 @@ public class PayServiceImplTest {
     public void create() throws  Exception{
         OrderDTO orderDTO = orderService.findOne("1523102750326979443");
 
-        payService.create(orderDTO, );
+        //payService.create(orderDTO, );   如何传HttpServletRequest
     }
 }

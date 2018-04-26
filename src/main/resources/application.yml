@@ -18,13 +18,20 @@ server:
   context-path: /sell
 
 wechat:
+  pay:
+    appId: wxbad0338f56a10d7a
+    mchId:
+    mchKey:
+    keyPath:
+    notifyUrl:
+
   miniapp:
-    appid:
+    appid: wxbad0338f56a10d7a
     secret:
     token:
     aesKey:
-    msgDataForm:
-    notifyUrl: http://zxoho.natapp1.cc/sell/pay/notify
+    msgDataForm: JSON
+
 
 debug: true
 

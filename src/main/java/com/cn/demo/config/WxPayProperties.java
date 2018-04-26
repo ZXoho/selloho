@@ -3,9 +3,8 @@ package com.cn.demo.config;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import javax.persistence.Entity;
 @Data
-@ConfigurationProperties(prefix = "wechat.miniapp")
+@ConfigurationProperties(prefix = "wechat.pay")
 public class WxPayProperties {
 
 
@@ -27,12 +26,12 @@ public class WxPayProperties {
     /**
      * 服务商模式下的子商户公众账号ID，普通模式请不要配置，请在配置文件中将对应项删除
      */
-    private String subAppId;
+    //private String subAppId;
 
     /**
      * 服务商模式下的子商户号，普通模式请不要配置，最好是请在配置文件中将对应项删除
      */
-    private String subMchId;
+    //private String subMchId;
 
     /**
      * apiclient_cert.p12文件的绝对路径，或者如果放在项目中，请以classpath:开头指定

@@ -30,8 +30,8 @@ public class WxPayConfigration {
         payConfig.setMchKey(this.properties.getMchKey());
         payConfig.setKeyPath(this.properties.getKeyPath());
         payConfig.setNotifyUrl(this.properties.getNotifyUrl());
-        payConfig.setSubAppId(org.apache.commons.lang3.StringUtils.trimToNull(this.properties.getSubAppId()));
-        payConfig.setSubMchId(org.apache.commons.lang3.StringUtils.trimToNull(this.properties.getSubMchId()));
+        //payConfig.setSubAppId(org.apache.commons.lang3.StringUtils.trimToNull(this.properties.getSubAppId()));
+        //payConfig.setSubMchId(org.apache.commons.lang3.StringUtils.trimToNull(this.properties.getSubMchId()));
         return payConfig;
     }
 
