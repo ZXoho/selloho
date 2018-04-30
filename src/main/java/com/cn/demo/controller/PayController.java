@@ -1,9 +1,11 @@
 package com.cn.demo.controller;
 
+import com.cn.demo.Utils.JsonUtil;
 import com.cn.demo.Utils.payUtil;
 import com.cn.demo.dto.OrderDTO;
 import com.cn.demo.service.OrderService;
 import com.cn.demo.service.PayService;
+import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyResult;
 import com.github.binarywang.wxpay.bean.request.WxPayRefundRequest;
 import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
 import com.github.binarywang.wxpay.bean.result.WxPayRefundResult;
@@ -58,6 +60,15 @@ public class PayController {
     @PostMapping("/cancel")
     public WxPayRefundResult cancel(@RequestBody WxPayRefundRequest refundRequest)throws WxPayException {
         return wxPayService.refund(refundRequest);
+    }
 
+    /**
+     * @param notifyData
+     * @return
+     * @throws WxPayException
+     */
+    @PostMapping("/notify")
+    public void notify(@RequestBody String notifyData) throws WxPayException {
+         payService.notify(notifyData);
     }
 }

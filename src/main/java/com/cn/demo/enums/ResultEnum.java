@@ -28,6 +28,8 @@ public enum ResultEnum {
     ORDER_FIND_ERROR(18, "订单查询错误"),
 
     FAIL_TO_GET_IP(19, "获取IP失败"),
+
+    WXPAY_NOTIFY_MONEY_ERROR(20, "微信支付金额不一致"),
     ;
 
     private Integer code;

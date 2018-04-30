@@ -1,14 +1,17 @@
 package com.cn.demo.service.impl;
 
 import com.cn.demo.Utils.IpUtil;
+import com.cn.demo.Utils.JsonUtil;
 import com.cn.demo.Utils.PriceUtil;
-import com.cn.demo.Utils.ResultVOUtil;
 import com.cn.demo.dto.OrderDTO;
 import com.cn.demo.enums.PayTypeEnum;
 import com.cn.demo.enums.ResultEnum;
 import com.cn.demo.exception.SellException;
+import com.cn.demo.service.OrderService;
 import com.cn.demo.service.PayService;
+import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyResult;
 import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
+import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,8 @@ public class PayServiceImpl implements PayService {
 
     @Autowired
     private WxPayService wxPayService;
+    @Autowired
+    private OrderService orderService;
     @Override
     public WxPayUnifiedOrderRequest create(OrderDTO orderDTO, HttpServletRequest request) {
         try {
@@ -48,6 +53,36 @@ public class PayServiceImpl implements PayService {
         }
     }
 
+    @Override
+    public WxPayOrderNotifyResult notify(String notifyData) throws WxPayException {
+        //1.验证签名
+        //2.验证支付状态
+        //3.验证支付金额
+        //4.验证支付人（下单人 == 支付人）
+        WxPayOrderNotifyResult notifyResult = wxPayService.parseOrderNotifyResult(notifyData);
+        log.info("【微信异步通知】，notifyResult={}", JsonUtil.toJson(notifyResult));
 
+        //查询订单
+        OrderDTO orderDTO = orderService.findOne(notifyResult.getTransactionId());
+
+        //验证订单是否存在
+        if(orderDTO == null) {
+            log.error("【微信支付】 订单不存在 orderId={}", notifyResult.getTransactionId());
+            throw new SellException(ResultEnum.ORDER_DOES_NOT_EXIST);
+        }
+
+        //验证金额是否一至
+        if(!orderDTO.getOrderAmount().toString().equals(notifyResult.getSettlementTotalFee().toString())) {
+            log.error("【微信支付】 订单金额不一致 orderId={}, 微信通知金额={}, 订单金额={}",
+                      notifyResult.getTransactionId(),
+                      notifyResult.getSettlementTotalFee()*100,
+                      orderDTO.getOrderAmount());
+            throw new SellException(ResultEnum.WXPAY_NOTIFY_MONEY_ERROR);
+        }
+
+        //修改订单支付状态
+        orderService.paid(orderDTO);
+        return notifyResult;
     }
+}
 

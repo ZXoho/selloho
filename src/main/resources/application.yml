@@ -23,7 +23,7 @@ wechat:
     mchId:
     mchKey:
     keyPath:
-    notifyUrl:
+    notifyUrl: http://zxoho.natapp1.cc/sell/pay/notify
 
   miniapp:
     appid: wxbad0338f56a10d7a
