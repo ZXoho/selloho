@@ -68,7 +68,10 @@ public class PayController {
      * @throws WxPayException
      */
     @PostMapping("/notify")
-    public void notify(@RequestBody String notifyData) throws WxPayException {
+    public ModelAndView notify(@RequestBody String notifyData) throws WxPayException {
          payService.notify(notifyData);
+
+         //向微信返回处理结果
+        return new ModelAndView("pay/success");
     }
 }

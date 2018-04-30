@@ -2,6 +2,7 @@ package com.cn.demo.service.impl;
 
 import com.cn.demo.Utils.IpUtil;
 import com.cn.demo.Utils.JsonUtil;
+import com.cn.demo.Utils.MathUtil;
 import com.cn.demo.Utils.PriceUtil;
 import com.cn.demo.dto.OrderDTO;
 import com.cn.demo.enums.PayTypeEnum;
@@ -11,13 +12,16 @@ import com.cn.demo.service.OrderService;
 import com.cn.demo.service.PayService;
 import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyResult;
 import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
+import com.github.binarywang.wxpay.bean.result.BaseWxPayResult;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.apache.bcel.generic.MULTIANEWARRAY;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 
 @Service
 @Slf4j
@@ -71,8 +75,9 @@ public class PayServiceImpl implements PayService {
             throw new SellException(ResultEnum.ORDER_DOES_NOT_EXIST);
         }
 
-        //验证金额是否一至
-        if(!orderDTO.getOrderAmount().toString().equals(notifyResult.getSettlementTotalFee().toString())) {
+        //验证金额是否一至(注意两个比较值的精确度 0.1  0.10）
+        BigDecimal feetoYuan = PriceUtil.feeToYuan(notifyResult.getSettlementTotalFee());
+        if(!MathUtil.equals(orderDTO.getOrderAmount().doubleValue(), feetoYuan.doubleValue())) {
             log.error("【微信支付】 订单金额不一致 orderId={}, 微信通知金额={}, 订单金额={}",
                       notifyResult.getTransactionId(),
                       notifyResult.getSettlementTotalFee()*100,
