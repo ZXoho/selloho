@@ -30,7 +30,11 @@ public enum ResultEnum {
     FAIL_TO_GET_IP(19, "获取IP失败"),
 
     WXPAY_NOTIFY_MONEY_ERROR(20, "微信支付金额不一致"),
-    ;
+
+    ORDER_CANCEL_SUCCESS(21, "订单取消成功"),
+
+    ORDER_FINISH_SUCCESS(22, "订单完结成功");
+
 
     private Integer code;
 

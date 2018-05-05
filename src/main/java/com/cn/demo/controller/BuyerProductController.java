@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/buyer/product")
@@ -29,13 +30,13 @@ public class BuyerProductController {
     @GetMapping("/list")
     public ResultVO list() {
         //查询所有上架商品
-        List<ProductInfo> productInfoList = new ArrayList<>();
-        productInfoList = productInfoService.findUpAll();
+        List<ProductInfo> productInfoList = productInfoList = productInfoService.findUpAll();
 
         //查询所有种类
-        List<Integer> categoryTypeList = new ArrayList<>();
-        List<ProductCategory> productCategoryList = new ArrayList<>();
-        productCategoryService.findByCategoryTypeIn(categoryTypeList);
+        List<Integer> categoryTypeList = productInfoList.stream()
+                .map(e -> e.getCategoryType())
+                .collect(Collectors.toList());
+        List<ProductCategory> productCategoryList = productCategoryService.findByCategoryTypeIn(categoryTypeList);
 
         //数据整理
         List<ProductVO> productVOList = new ArrayList<>();

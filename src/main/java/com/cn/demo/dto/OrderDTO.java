@@ -1,6 +1,11 @@
 package com.cn.demo.dto;
+import com.cn.demo.Utils.EnumUtil;
 import com.cn.demo.dataobject.OrderDetail;
+import com.cn.demo.enums.OrderStatusEnum;
+import com.cn.demo.enums.PayStatusEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -54,12 +59,24 @@ public class OrderDTO {
     /**
      * 创建时间
      */
+    //@JsonSerialize(using = Date2LongSerializer.class)
     private Date createTime;
 
     /**
      * 更新时间
      */
+    //@JsonSerialize(using = Date2LongSerializer.class)
     private Date updateTime;
 
     List<OrderDetail> orderDetailList;
+
+    @JsonIgnore
+    public OrderStatusEnum getOrderStatusEnum() {
+        return EnumUtil.getByCode(orderStatus, OrderStatusEnum.class);
+    }
+
+    @JsonIgnore
+    public PayStatusEnum getPayStatusEnum(){
+        return EnumUtil.getByCode(payStatus, PayStatusEnum.class);
+    }
 }
