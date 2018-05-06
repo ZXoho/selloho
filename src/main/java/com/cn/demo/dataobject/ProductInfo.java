@@ -1,13 +1,19 @@
 package com.cn.demo.dataobject;
 
+import com.cn.demo.Utils.EnumUtil;
+import com.cn.demo.enums.ProductStatusEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.Entity;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Entity
 @Data
+@DynamicUpdate
 public class ProductInfo {
 
    @javax.persistence.Id
@@ -30,6 +36,18 @@ public class ProductInfo {
 
     //商品所属种类
     private  Integer categoryType;
+
+    private Date createTime;
+
+    private  Date updateTime;
+
+ @JsonIgnore
+ public ProductStatusEnum getProductStatusEnum() {
+  return EnumUtil.getByCode(productStatus, ProductStatusEnum.class);
+ }
+
+
+
 
 
 }

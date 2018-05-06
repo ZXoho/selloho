@@ -1,19 +1,25 @@
 package com.cn.demo.controller;
 
+import com.cn.demo.dataobject.ProductCategory;
+import com.cn.demo.dataobject.ProductInfo;
 import com.cn.demo.dto.OrderDTO;
 import com.cn.demo.enums.ResultEnum;
 import com.cn.demo.exception.SellException;
 import com.cn.demo.service.OrderService;
+import com.cn.demo.service.ProductCategoryService;
+import com.cn.demo.service.ProductInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -23,6 +29,10 @@ public class SellerOrderController {
 
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private ProductCategoryService categoryService;
+    @Autowired
+    private ProductInfoService productInfoService;
 
     /**
      *卖家查看订单列表
@@ -107,6 +117,18 @@ public class SellerOrderController {
         map.put("msg", ResultEnum.ORDER_FINISH_SUCCESS.getMsg());
         map.put("url", "/sell/seller/order/list");
         return new ModelAndView("/common/success", map);
+    }
+
+    @GetMapping("/index")
+    public ModelAndView index(@RequestParam(value = "productId", required = false) String productId,
+                               Map<String, Object> map) {
+        if(StringUtils.isEmpty(productId)) {
+            ProductInfo productInfo = productInfoService.findOne(productId);
+            map.put("product", productInfo);
+        }
+        List<ProductCategory> productCategoryList = categoryService.findAll();
+        map.put("productCategory", productCategoryList);
+        return new ModelAndView("/order/index", map);
 
     }
 

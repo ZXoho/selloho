@@ -72,6 +72,23 @@ public class ProductInfoServiceImpl implements ProductInfoService {
             productInfo.setProductStock(result);
             productInfoDao.save(productInfo);
         }
+    }
 
+    @Override
+    public void onSale(String productId) {
+        ProductInfo productInfo = productInfoDao.findOne(productId);
+        productInfo.setProductStatus(0);
+        productInfoDao.save(productInfo);
+
+    }
+
+    @Override
+    public void offSale(String productId) {
+        ProductInfo productInfo = productInfoDao.findOne(productId);
+        if(productInfo == null) {
+            throw new SellException(ResultEnum.FAIl);
+        }
+        productInfo.setProductStatus(1);
+        productInfoDao.save(productInfo);
     }
 }

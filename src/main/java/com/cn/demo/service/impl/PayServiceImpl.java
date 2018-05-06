@@ -36,7 +36,7 @@ public class PayServiceImpl implements PayService {
     @Autowired
     private OrderService orderService;
     @Override
-    public WxPayUnifiedOrderRequest create(OrderDTO orderDTO, HttpServletRequest request) {
+    public WxPayUnifiedOrderRequest create(OrderDTO orderDTO, HttpServletRequest request) {  //TODO 怎样传值
         try {
             WxPayUnifiedOrderRequest orderRequest = new WxPayUnifiedOrderRequest();
             orderRequest.setBody("微信支付");

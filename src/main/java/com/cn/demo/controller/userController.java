@@ -33,7 +33,7 @@ public class userController {
             WxMaJscode2SessionResult sessionResult = wxMaService.getUserService().getSessionInfo(code);
             log.info("openid: openid={}", sessionResult.getOpenid());
             log.info("sessionKey: sessionKey={}", sessionResult.getSessionKey());
-            return JsonUtil.toJson(sessionResult);
+            return JsonUtil.toJson(sessionResult.getOpenid());
         } catch (WxErrorException e) {
             log.error(e.getMessage());
             return e.toString();
