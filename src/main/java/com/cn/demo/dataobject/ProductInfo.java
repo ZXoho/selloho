@@ -32,7 +32,7 @@ public class ProductInfo {
     private String productIcon;
 
     //商品状态,0为商家，1为上架
-    private Integer productStatus;
+    private Integer productStatus = ProductStatusEnum.SALE.getCode();
 
     //商品所属种类
     private  Integer categoryType;

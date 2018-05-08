@@ -1,5 +1,6 @@
 package com.cn.demo.controller;
 
+import com.cn.demo.Utils.KeyUntil;
 import com.cn.demo.dao.ProductCategoryDao;
 import com.cn.demo.dataobject.ProductCategory;
 import com.cn.demo.dataobject.ProductInfo;
@@ -78,12 +79,13 @@ public class SellerProductController {
     @GetMapping("/index")
     public ModelAndView index(@RequestParam(value = "productId", required = false) String productId,
                               Map<String, Object>map) {
+        List<ProductCategory> productCategoryList = categoryService.findAll();
         if(!StringUtils.isEmpty(productId)) {
             ProductInfo productInfo = productInfoService.findOne(productId);
-            List<ProductCategory> productCategoryList = categoryService.findAll();
             map.put("product", productInfo);
             map.put("productCategoryList", productCategoryList);
         }
+        map.put("productCategoryList", productCategoryList);
         return new ModelAndView("/product/index", map);
     }
 
@@ -103,10 +105,16 @@ public class SellerProductController {
             map.put("url", "/sell/seller/product/list");
             return new ModelAndView("/common/error", map);
         }
+        ProductInfo productInfo = new ProductInfo();
         try {
-            ProductInfo productInfo = productInfoService.findOne(form.getProductId());
+            if(!StringUtils.isEmpty(form.getProductId())) {
+                productInfo = productInfoService.findOne(form.getProductId());
+            } else {
+                form.setProductId(KeyUntil.genUniquekey());
+            }
             BeanUtils.copyProperties(form, productInfo);
             productInfoService.save(productInfo);
+
         } catch (SellException e) {
             map.put("url", "/sell/seller/product/index");
             map.put("msg", e.getMessage());

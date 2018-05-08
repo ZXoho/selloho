@@ -27,7 +27,7 @@
                         </div>
                         <div class="form-group">
                             <label >描述</label>
-                            <input type="text" class="form-control" name="productPrice" value="${(product.productDescription)!''}" />
+                            <input type="text" class="form-control" name="productDescription" value="${(product.productDescription)!''}" />
                         </div>
                         <div class="form-group">
                             <label >图片</label>
@@ -36,8 +36,8 @@
                         </div>
                         <div class="form-group">
                             <label >类目</label>
-                            <select>
-                                <#list productCategoryList as category>
+                            <select name="categoryType" class="form-control">
+                                <#list productCategoryList  as category>
                                     <option value="${category.categoryType}"
                                     <#if (product.categoryType)?? && product.categoryType == category.categoryType>
                                         selected
@@ -48,7 +48,7 @@
                             </select>
                         </div>
                         <input hidden type="text" name="productId" value="${(product.productId)!''}">
-                        </div> <button type="submit" class="btn btn-default">提交</button>
+                         <button type="submit" class="btn btn-default">提交</button>
                     </form>
                 </div>
             </div>

@@ -19,7 +19,7 @@ public class ProductCategory {
 
     /** 种类id */
     @Id
-    @GeneratedValue
+    @GeneratedValue   //ID自增
 
     private Integer categoryId;
 
@@ -35,7 +35,6 @@ public class ProductCategory {
     /** 更新时间 */
     private Date updateTime;
 
-    public ProductCategory() {
-    }
+
 }
 
