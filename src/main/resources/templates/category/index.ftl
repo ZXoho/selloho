@@ -19,9 +19,9 @@
                         </div>
                         <div class="form-group">
                             <label >类型</label>
-                            <input type="number" class="form-control" name="productPrice" value="${(category.categoryType)!''}" />
+                            <input type="number" class="form-control" name="categoryType" value="${(category.categoryType)!''}" />
                         </div>
-                        <input hidden type="text" name="categoryId" value="${(category.categoryId)!''}">
+                        <input hidden type="number" name="categoryId" value="${(category.categoryId)!''}">
                         <button type="submit" class="btn btn-default">提交</button>
                     </form>
                 </div>
