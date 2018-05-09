@@ -14,10 +14,7 @@
                 <div class="col-md-12 column">
                 <#-- 分页-->
                     <div class="col-md-12 column">
-                        <ul class="pagination pull-right" >
-
-
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" align="center">
                         <thead>
                         <tr>
                             <th>种类id</th>
