@@ -11,6 +11,7 @@ import com.cn.demo.service.ProductCategoryService;
 import com.cn.demo.service.ProductInfoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -97,6 +98,7 @@ public class SellerProductController {
      * @return
      */
     @PostMapping("/save")
+    @CacheEvict(cacheNames = "product", allEntries = true, beforeInvocation = true)
     public ModelAndView save(@Valid ProductForm form,
                              BindingResult bindingResult,
                              Map<String, Object> map) {
