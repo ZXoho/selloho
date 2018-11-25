@@ -16,4 +16,5 @@ public class SellerInfo {
     private String password;
     private Date createTime;
     private Date updateTime;
+    private String roleName;
 }

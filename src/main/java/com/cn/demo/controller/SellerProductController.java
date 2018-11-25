@@ -47,6 +47,7 @@ public class SellerProductController {
         map.put("currentPage", page);
         map.put("size", size);
         return new ModelAndView("/product/list", map);
+
     }
 
     @GetMapping("/onSale")
@@ -98,7 +99,7 @@ public class SellerProductController {
      * @return
      */
     @PostMapping("/save")
-    @CacheEvict(cacheNames = "product", allEntries = true, beforeInvocation = true)
+    //@CacheEvict(cacheNames = "product", allEntries = true, beforeInvocation = true)
     public ModelAndView save(@Valid ProductForm form,
                              BindingResult bindingResult,
                              Map<String, Object> map) {
