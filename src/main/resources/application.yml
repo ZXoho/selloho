@@ -22,7 +22,7 @@ spring:
       max-idle: 10
       max-wait: 1
       min-idle: 0
-    timeout: 1
+    timeout: 1000
 server:
   context-path: /sell
 

@@ -54,16 +54,32 @@ public class RedisService {
     public String get(String key) {
         Jedis jedis = null;
         try {
-            if(key == null || key.length() <= 0) {
+            if(key.isEmpty() || key.length() <= 0) {
                 System.out.println("redisKey is error");
                 log.error("redisKey is error");
             }
             jedis = jedisPool.getResource();
             String str = jedis.get(key);
-            return str;
+            if(str == null)
+                log.error("RedisKey is not valid");
+                return str;
         } finally {
             if(jedis != null)
                 jedis.close();
+        }
+    }
+
+    public void delete(String key) {
+        Jedis jedis = null;
+        try {
+            if(key.isEmpty() || key.length() <= 0) {
+                System.out.println("key is error");
+                log.error("key is error");
+            }
+            jedis = jedisPool.getResource();
+            jedis.del(key);
+        } finally {
+
         }
     }
 

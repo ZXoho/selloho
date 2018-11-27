@@ -3,7 +3,7 @@ package com.cn.demo.enums;
 import lombok.Getter;
 
 @Getter
-public enum ProductStatusEnum {
+public enum ProductStatusEnum implements CodeEnum{
 
     SALE(0, "上架"),
     NOT_SALE(1, "下架")

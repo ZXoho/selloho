@@ -3,7 +3,7 @@ package com.cn.demo.enums;
 import lombok.Getter;
 
 @Getter
-public enum ResultEnum {
+public enum ResultEnum implements CodeEnum{
 
     PARAM_ERROR(1, "参数不正确"),
 

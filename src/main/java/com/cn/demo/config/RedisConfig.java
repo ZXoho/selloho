@@ -10,7 +10,7 @@ import redis.clients.jedis.JedisPoolConfig;
 
 @Component
 @Configuration
-@ConfigurationProperties(prefix = "redis")
+@ConfigurationProperties(prefix = "spring.redis")
 @Data
 public class RedisConfig {
 

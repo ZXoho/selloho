@@ -1,17 +1,22 @@
 package com.cn.demo.controller;
 
+import com.cn.demo.Utils.FreeMarkerUtil;
 import com.cn.demo.Utils.KeyUntil;
 import com.cn.demo.dao.ProductCategoryDao;
 import com.cn.demo.dataobject.ProductCategory;
 import com.cn.demo.dataobject.ProductInfo;
 import com.cn.demo.dto.OrderDTO;
+import com.cn.demo.enums.RedisKeyEnum;
 import com.cn.demo.exception.SellException;
 import com.cn.demo.form.ProductForm;
+import com.cn.demo.redis.RedisService;
 import com.cn.demo.service.ProductCategoryService;
 import com.cn.demo.service.ProductInfoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -22,6 +27,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -36,18 +42,28 @@ public class SellerProductController {
     private ProductInfoService productInfoService;
     @Autowired
     private ProductCategoryService categoryService;
+    @Autowired
+    private FreeMarkerViewResolver freeMarkerViewResolver;
+    @Autowired
+    private RedisService redisService;
 
-    @GetMapping("/list")
+    @GetMapping(value = "/list", produces = "text/html")
+    @CacheEvict(cacheNames = "Product", key = "123")
     public ModelAndView list(@RequestParam(value = "page", defaultValue = "1") Integer page,
                              @RequestParam(value = "size", defaultValue = "10") Integer size,
                              Map<String, Object> map) {
+//        查缓存
+//        String html = redisService.get(RedisKeyEnum.SELLER_PRODUCT_LIST.getMsg());
+//        if(!html.isEmpty()){
+//            return html;
+//        }
+
         PageRequest request = new PageRequest(page - 1, size);
         Page<ProductInfo> productInfoPage = productInfoService.findAll(request);
         map.put("productInfoPage", productInfoPage);
         map.put("currentPage", page);
         map.put("size", size);
         return new ModelAndView("/product/list", map);
-
     }
 
     @GetMapping("/onSale")
@@ -99,7 +115,7 @@ public class SellerProductController {
      * @return
      */
     @PostMapping("/save")
-    //@CacheEvict(cacheNames = "product", allEntries = true, beforeInvocation = true)
+    //@CachePut(cacheNames = "product", key = "123")
     public ModelAndView save(@Valid ProductForm form,
                              BindingResult bindingResult,
                              Map<String, Object> map) {

@@ -7,6 +7,8 @@ import com.cn.demo.enums.ResultEnum;
 import com.cn.demo.exception.SellException;
 import com.cn.demo.service.ProductInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +22,7 @@ public class ProductInfoServiceImpl implements ProductInfoService {
     private ProductInfoDao productInfoDao;
 
     @Override
+    @Cacheable(cacheNames = "product", key = "123")
     public ProductInfo findOne(String productId) {
         return productInfoDao.findOne(productId);
     }
@@ -32,12 +35,14 @@ public class ProductInfoServiceImpl implements ProductInfoService {
     }
 
     @Override
+    @CachePut(cacheNames = "product", key = "123")
     public ProductInfo save(ProductInfo productInfo) {
         return productInfoDao.save(productInfo);
     }
 
 
     @Override
+    //@Cacheable(cacheNames = "product", key = "123") //TODO 不能查找、缓存
     public Page<ProductInfo> findAll(org.springframework.data.domain.Pageable pageable) {
         return productInfoDao.findAll(pageable);
     }

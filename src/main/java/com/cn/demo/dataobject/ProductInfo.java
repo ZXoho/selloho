@@ -8,15 +8,18 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.Entity;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
 @Data
 @DynamicUpdate
-public class ProductInfo {
+public class ProductInfo implements Serializable {
 
-   @javax.persistence.Id
+
+ private static final long serialVersionUID = -1308710230525688489L;
+ @javax.persistence.Id
     private String productId;
 
     private String productName;

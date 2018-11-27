@@ -3,7 +3,7 @@ package com.cn.demo.enums;
 import lombok.Getter;
 
 @Getter
-public enum PayTypeEnum {
+public enum PayTypeEnum implements CodeEnum{
 
     WX_PAY(1, "微信支付"),
     ZFB_PAY(2, "支付宝支付"),
