@@ -47,8 +47,8 @@ public class SellerProductController {
     @Autowired
     private RedisService redisService;
 
-    @GetMapping(value = "/list", produces = "text/html")
-    @CacheEvict(cacheNames = "Product", key = "123")
+    @GetMapping(value = "/list")
+    @CacheEvict(cacheNames = "Page",key="'sellerProductList'")
     public ModelAndView list(@RequestParam(value = "page", defaultValue = "1") Integer page,
                              @RequestParam(value = "size", defaultValue = "10") Integer size,
                              Map<String, Object> map) {

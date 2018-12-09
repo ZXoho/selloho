@@ -42,7 +42,7 @@ public class ProductInfoServiceImpl implements ProductInfoService {
 
 
     @Override
-    //@Cacheable(cacheNames = "product", key = "123") //TODO 不能查找、缓存
+    @Cacheable(cacheNames = "product", key = "#pageable.pageNumber")
     public Page<ProductInfo> findAll(org.springframework.data.domain.Pageable pageable) {
         return productInfoDao.findAll(pageable);
     }
